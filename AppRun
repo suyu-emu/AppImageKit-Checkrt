@@ -1,5 +1,10 @@
 #!/bin/sh -e
 
+# Force xcb platform for Qt applications
+if [ -z "${QT_QPA_PLATFORM}" ]; then
+    export QT_QPA_PLATFORM=xcb
+fi
+
 # add your command to execute here
 exec=
 
