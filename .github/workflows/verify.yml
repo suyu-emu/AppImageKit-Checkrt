@@ -1,0 +1,26 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ gh-workflow ]
+  pull_request:
+    branches: [ gh-workflow ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-18.04
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: make
+      run: make -C src
+    - name: copy
+      run: |
+        mkdir -p artifacts 
+        cp -v src/checkrt src/exec.so artifacts
+    - name: upload
+      uses: actions/upload-artifact@v3
+      with:
+        name: binaries
+        path: artifacts/*
